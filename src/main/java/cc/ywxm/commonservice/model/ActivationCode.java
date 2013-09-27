@@ -56,6 +56,9 @@ public class ActivationCode implements Serializable {
 
     private int valid;
 
+    public ActivationCode() {
+    }
+
     public ActivationCode(int kind) {
         this.kind = kind;
     }

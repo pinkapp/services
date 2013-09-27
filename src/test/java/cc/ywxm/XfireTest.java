@@ -21,7 +21,7 @@ public class XfireTest {
                     serviceModel,
                     "http://127.0.0.1/service/ActivationCodeService");
             //方法一 测试
-            String str = service.generate_code(1,4);
+            boolean str = service.update_valid("ATzGLOTgR7TRwmdh",333);
             System.out.println(str);
         } catch (MalformedURLException e) {
             e.printStackTrace();

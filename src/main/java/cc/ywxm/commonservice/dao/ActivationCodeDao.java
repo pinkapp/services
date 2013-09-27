@@ -15,4 +15,8 @@ public interface ActivationCodeDao
 
 	void batch_save(List<ActivationCode> codes);
 
+    ActivationCode get(String code);
+
+    void update(ActivationCode code);
+
 }

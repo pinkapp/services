@@ -27,4 +27,19 @@ public interface ActivationCodeService {
      * @return 激活码的列表
      */
     String generate_code(int kind, String servers,int begin_ts, int end_ts, int n);
+
+    /**
+     * 获取激活码信息
+     * @param code
+     * @return
+     */
+    String get_info(String code);
+
+    /**
+     * 设置有效值
+     * @param code
+     * @param valid
+     * @return
+     */
+    boolean update_valid(String code,int valid);
 }

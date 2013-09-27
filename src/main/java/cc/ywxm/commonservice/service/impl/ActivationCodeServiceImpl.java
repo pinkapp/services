@@ -47,4 +47,18 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
         return new JSONArray(codes).toString();
     }
 
+    @Override
+    public String get_info(String code) {
+        ActivationCode activationCode = activationCodeDao.get(code);
+        return new JSONObject(activationCode).toString();
+    }
+
+    @Override
+    public boolean update_valid(String code, int valid) {
+        ActivationCode activationCode = activationCodeDao.get(code);
+        activationCode.setValid(valid);
+        activationCodeDao.update(activationCode);
+        return true;
+    }
+
 }
