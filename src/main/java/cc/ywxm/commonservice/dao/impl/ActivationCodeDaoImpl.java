@@ -28,14 +28,17 @@ public class ActivationCodeDaoImpl implements ActivationCodeDao
 
 	public void batch_save(List<ActivationCode> codes)
 	{
-		String sql = "INSERT INTO activation_code(code, kind, is_valid)VALUES (:code, :kind, :is_valid)";
+		String sql = "INSERT INTO activation_code(code, kind, servers, begin_time, end_time, valid)VALUES (:code, :kind, :servers, :begin_time, :end_time, :valid)";
 
 		for (ActivationCode code : codes)
 		{
 			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("code", code.getCode());
 			paramMap.put("kind", code.getKind());
-			paramMap.put("is_valid", code.getIs_valid());
+			paramMap.put("servers", code.getServers());
+			paramMap.put("begin_time", code.getBegin_time());
+			paramMap.put("end_time", code.getEnd_time());
+			paramMap.put("valid", code.getValid());
 			jdbcTemplate.update(sql, paramMap);
 		}
 	}

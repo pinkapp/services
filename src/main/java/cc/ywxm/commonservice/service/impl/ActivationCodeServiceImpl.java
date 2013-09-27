@@ -34,4 +34,17 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
         return new JSONObject().put("array", new JSONArray(codes)).toString();
     }
 
+    @Override
+    public String generate_code(int kind, String servers, int begin_ts, int end_ts,int n) {
+        List<ActivationCode> codes = new ArrayList<ActivationCode>();
+        if (kind > 0) {
+            for (int i = 1; i <= n; i++) {
+                ActivationCode code = new ActivationCode(kind,servers,begin_ts,end_ts);
+                codes.add(code);
+            }
+        }
+        activationCodeDao.batch_save(codes);
+        return new JSONArray(codes).toString();
+    }
+
 }
