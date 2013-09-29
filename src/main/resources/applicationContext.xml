@@ -6,9 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
 				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-	<context:component-scan base-package="cc.ywxm.commonservice" />
-	<context:property-placeholder
-		location="classpath:conf/db_config.properties" />
+	<import resource="applicationContext-service.xml"/>
+    <context:component-scan base-package="cc.ywxm.commonservice" />
+	<context:property-placeholder location="classpath:conf/db_config.properties" />
 
 	<!-- Local C3P0 DataSource that works in any environment -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -23,31 +23,52 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="activationCodeServiceImpl" class="cc.ywxm.commonservice.service.impl.ActivationCodeServiceImpl">
     </bean>
+    <!-- jpa -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!--<property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="hibernate-jpa" />-->
+        <!-- 选配属性 -->
+        <!--<property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
+                <property name="showSql" value="false"/>
+                <property name="generateDdl" value="false"/>
+                <property name="databasePlatform" value="org.apache.openjpa.jdbc.sql.MySQLDictionary"/>
+            </bean>
+        </property>-->
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
+        <property name="packagesToScan" value="cc.ywxm.commonservice.model"/><!--待扫描的实体类包，不再需要persistence.xml了-->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+    <!--实现JPA的适配器-->
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+    </bean>
+    <!-- Jpa 事务配置 -->
+    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>-->
     <!-- rmi -->
-    <bean id="exporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
+    <!--<bean id="exporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="service" ref="activationCodeServiceImpl"/>
         <property name="serviceName" value="activationCodeService"/>
         <property name="serviceInterface" value="cc.ywxm.commonservice.service.ActivationCodeService"/>
         <property name="registryPort" value="9111"/>
         <property name="servicePort" value="10023"/>
+    </bean>-->
+    <!-- jdbc 事务配置 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
     </bean>
-    <!-- xfire -->
-    <import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
-    <bean id="baseWebService" class="org.codehaus.xfire.spring.remoting.XFireExporter" lazy-init="false" abstract="true">
-        <property name="serviceFactory" ref="xfire.serviceFactory" />
-        <property name="xfire" ref="xfire" />
-    </bean>
-    <bean id="activationCodeWS" class="cc.ywxm.commonservice.service.impl.ActivationCodeServiceImpl">
-    </bean>
-    <bean id="userService" parent="baseWebService">
-        <property name="serviceBean" ref="activationCodeWS" />
-        <property name="serviceClass" value="cc.ywxm.commonservice.service.ActivationCodeService" />
-    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

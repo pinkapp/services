@@ -91,6 +91,12 @@
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.framework.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.framework.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- log4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
