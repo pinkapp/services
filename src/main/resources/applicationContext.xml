@@ -54,9 +54,9 @@
         <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
     </bean>
     <!-- Jpa 事务配置 -->
-    <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>-->
+    </bean>
     <!-- rmi -->
     <!--<bean id="exporter" class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="service" ref="activationCodeServiceImpl"/>
@@ -66,9 +66,9 @@
         <property name="servicePort" value="10023"/>
     </bean>-->
     <!-- jdbc 事务配置 -->
-    <bean id="transactionManager"
+   <!-- <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
-    </bean>
+    </bean>-->
     <tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

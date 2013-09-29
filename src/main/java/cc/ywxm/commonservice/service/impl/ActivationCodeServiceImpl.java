@@ -35,11 +35,11 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
     }
 
     @Override
-    public String generate_code(int kind, String servers, int begin_ts, int end_ts,int n) {
+    public String generate_code(int kind, String servers, int begin_ts, int end_ts, int n) {
         List<ActivationCode> codes = new ArrayList<ActivationCode>();
         if (kind > 0) {
             for (int i = 1; i <= n; i++) {
-                ActivationCode code = new ActivationCode(kind,servers,begin_ts,end_ts);
+                ActivationCode code = new ActivationCode(kind, servers, begin_ts, end_ts);
                 codes.add(code);
             }
         }
@@ -50,6 +50,9 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
     @Override
     public String get_info(String code) {
         ActivationCode activationCode = activationCodeDao.get(code);
+        if (activationCode == null) {
+            return null;
+        }
         return new JSONObject(activationCode).toString();
     }
 

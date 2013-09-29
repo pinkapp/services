@@ -3,6 +3,7 @@ package cc.ywxm.commonservice.model;
 
 import cc.ywxm.utils.RandomStringUtils;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -11,7 +12,12 @@ import java.sql.Timestamp;
  *
  * @author HDC
  */
+@NamedQueries({
+        @NamedQuery(name = "findActivationCodeByCode", query = "SELECT ac FROM ActivationCode ac WHERE ac.code = :code")
+})
+@Entity
 public class ActivationCode implements Serializable {
+
     private Long id;
     /**
      * 激活码
@@ -73,6 +79,9 @@ public class ActivationCode implements Serializable {
         this.valid = 1;
     }
 
+    @Id
+    @GeneratedValue
+    @Column(name = "id", unique = true, nullable = false)
     public Long getId() {
         return id;
     }
@@ -81,6 +90,7 @@ public class ActivationCode implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "code")
     public String getCode() {
         return code;
     }

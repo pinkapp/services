@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class ActivationCodeDaoImpl implements ActivationCodeDao {
 
     /** */

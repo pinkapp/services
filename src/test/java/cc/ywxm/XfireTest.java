@@ -1,5 +1,6 @@
 package cc.ywxm;
 
+import cc.ywxm.commonservice.model.ActivationCode;
 import cc.ywxm.commonservice.service.ActivationCodeService;
 import org.codehaus.xfire.client.XFireProxyFactory;
 import org.codehaus.xfire.service.Service;
@@ -21,8 +22,8 @@ public class XfireTest {
                     serviceModel,
                     "http://127.0.0.1/service/ActivationCodeService");
             //方法一 测试
-            boolean str = service.update_valid("ATzGLOTgR7TRwmdh",333);
-            System.out.println(str);
+            String code = service.get_info("SbCemCsHrBdmMlsi");
+            System.out.println(code);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
