@@ -42,4 +42,11 @@ public interface ActivationCodeService {
      * @return
      */
     boolean update_valid(String code,int valid);
+
+    /**
+     *兑换激活码
+     * @param code
+     * @return
+     */
+    int exchangeCode(int serverid,String code);
 }

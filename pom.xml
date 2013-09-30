@@ -169,7 +169,7 @@
                 <version>2.0</version>
                 <configuration>
                     <server>tomcat-development-server</server>
-                    <port>80</port>
+                    <port>81</port>
                     <path>/</path>
                 </configuration>
             </plugin>

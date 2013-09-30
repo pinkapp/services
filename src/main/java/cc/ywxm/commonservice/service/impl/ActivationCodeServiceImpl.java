@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * 激活码业务实现类
@@ -62,6 +64,28 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
         activationCode.setValid(valid);
         activationCodeDao.update(activationCode);
         return true;
+    }
+
+    @Override
+    public int exchangeCode(int serverid, String code) {
+        ActivationCode activationCode = activationCodeDao.get(code);
+        if (activationCode == null) return 1;  //错误cdk
+        if (activationCode.getValid() == 1) return 2; //已使用的CDK
+        StringTokenizer tokenizer = new StringTokenizer(activationCode.getServers(), ",");
+        while (tokenizer.hasMoreTokens()) {
+            String elt = tokenizer.nextToken();
+            if (String.valueOf(serverid).equals(elt.trim())) {
+                long current = new Date().getTime();
+                if (activationCode.getBegin_time().getTime() <= current && current <= activationCode.getEnd_time().getTime()) {
+                    activationCode.setValid(1);
+                    activationCodeDao.update(activationCode);
+                    return 0;
+                } else {
+                    return 5;//cdk过期
+                }
+            }
+        }
+        return 4;//该cdk不属于该服务器使用
     }
 
 }
