@@ -48,5 +48,5 @@ public interface ActivationCodeService {
      * @param code
      * @return
      */
-    int exchangeCode(int serverid,String code);
+    String exchangeCode(int serverid,String code);
 }

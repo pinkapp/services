@@ -67,10 +67,10 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
     }
 
     @Override
-    public int exchangeCode(int serverid, String code) {
+    public String exchangeCode(int serverid, String code) {
         ActivationCode activationCode = activationCodeDao.get(code);
-        if (activationCode == null) return 1;  //错误cdk
-        if (activationCode.getValid() == 1) return 2; //已使用的CDK
+        if (activationCode == null)return new JSONObject().put("result",1).put("code",code).toString();  //错误cdk
+        if (activationCode.getValid() == 1)return  new JSONObject().put("result",2).put("code",code).toString(); //已使用的CDK
         StringTokenizer tokenizer = new StringTokenizer(activationCode.getServers(), ",");
         while (tokenizer.hasMoreTokens()) {
             String elt = tokenizer.nextToken();
@@ -79,13 +79,13 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
                 if (activationCode.getBegin_time().getTime() <= current && current <= activationCode.getEnd_time().getTime()) {
                     activationCode.setValid(1);
                     activationCodeDao.update(activationCode);
-                    return 0;
+                    return new JSONObject().put("result",0).put("code",code).put("kind",activationCode.getKind()).toString();
                 } else {
-                    return 5;//cdk过期
+                    return new JSONObject().put("result",5).put("code",code).toString();//cdk过期
                 }
             }
         }
-        return 4;//该cdk不属于该服务器使用
+        return new JSONObject().put("result",4).put("code",code).toString();//该cdk不属于该服务器使用
     }
 
 }
