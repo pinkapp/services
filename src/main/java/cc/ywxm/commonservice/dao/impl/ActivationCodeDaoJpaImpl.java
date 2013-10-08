@@ -40,8 +40,10 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     }
 
     @Override
+    @Transactional
     public void update(ActivationCode code) {
         entityManager.merge(code);
+        //entityManager.flush();
     }
 
 }

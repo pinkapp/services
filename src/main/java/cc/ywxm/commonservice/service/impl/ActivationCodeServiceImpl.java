@@ -70,14 +70,14 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
     public String exchangeCode(int serverid, String code) {
         ActivationCode activationCode = activationCodeDao.get(code);
         if (activationCode == null)return new JSONObject().put("result",1).put("code",code).toString();  //错误cdk
-        if (activationCode.getValid() == 1)return  new JSONObject().put("result",2).put("code",code).toString(); //已使用的CDK
+        if (activationCode.getValid() == 0)return  new JSONObject().put("result",2).put("code",code).toString(); //已使用的CDK
         StringTokenizer tokenizer = new StringTokenizer(activationCode.getServers(), ",");
         while (tokenizer.hasMoreTokens()) {
             String elt = tokenizer.nextToken();
             if (String.valueOf(serverid).equals(elt.trim())) {
                 long current = new Date().getTime();
                 if (activationCode.getBegin_time().getTime() <= current && current <= activationCode.getEnd_time().getTime()) {
-                    activationCode.setValid(1);
+                    activationCode.setValid(0);
                     activationCodeDao.update(activationCode);
                     return new JSONObject().put("result",0).put("code",code).put("kind",activationCode.getKind()).toString();
                 } else {
