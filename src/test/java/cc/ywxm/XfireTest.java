@@ -20,9 +20,10 @@ public class XfireTest {
             Service serviceModel = new ObjectServiceFactory().create(ActivationCodeService.class);
             ActivationCodeService service = (ActivationCodeService) new XFireProxyFactory().create(
                     serviceModel,
-                    "http://127.0.0.1/service/ActivationCodeService");
+                    "http://127.0.0.1:81/service/ActivationCodeService");
             //方法一 测试
-            String code = service.get_info("SbCemCsHrBdmMlsi");
+            String code = service.exchangeCode(44,"dKnSFKlVCuAeKZL3");
+            //String code = service.generate_code(2,"33,44,55,6",33434343,453544444,7);
             System.out.println(code);
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -19,6 +19,13 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+
+    @Override
+    @Transactional
+    public void save(ActivationCode code) {
+        entityManager.persist(code);
+    }
+
     @Transactional
     public void batch_save(List<ActivationCode> codes) {
         //System.out.print(codes);
@@ -31,7 +38,19 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     @Override
     public ActivationCode get(String code) {
         Query query = entityManager.createNamedQuery("findActivationCodeByCode");
-        query.setParameter("code", code);
+        query.setParameter("code", "%"+code+"%");
+        List<ActivationCode> codes = query.getResultList();
+        if (codes.size() > 0) {
+            return codes.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public ActivationCode get(String code, int serverid) {
+        Query query = entityManager.createNamedQuery("findActivationCodeByCode2");
+        query.setParameter("code", "%"+code+"%");
+        query.setParameter("servers", "%"+serverid+"%");
         List<ActivationCode> codes = query.getResultList();
         if (codes.size() > 0) {
             return codes.get(0);

@@ -25,17 +25,21 @@ public class ActivationCodeDaoImpl implements ActivationCodeDao {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
+    @Override
+    public void save(ActivationCode code) {
+    }
+
     public void batch_save(List<ActivationCode> codes) {
-        String sql = "INSERT INTO activation_code(code, kind, servers, begin_time, end_time, valid)VALUES (:code, :kind, :servers, :begin_time, :end_time, :valid)";
+        String sql = "INSERT INTO activation_code(codes, kind, servers, begin_time, end_time)VALUES (:code, :kind, :servers, :begin_time, :end_time)";
 
         for (ActivationCode code : codes) {
             Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("code", code.getCode());
+            paramMap.put("codes", code.getCodes());
             paramMap.put("kind", code.getKind());
             paramMap.put("servers", code.getServers());
             paramMap.put("begin_time", code.getBegin_time());
             paramMap.put("end_time", code.getEnd_time());
-            paramMap.put("valid", code.getValid());
+            //paramMap.put("valid", code.getValid());
             jdbcTemplate.update(sql, paramMap);
         }
     }
@@ -54,16 +58,21 @@ public class ActivationCodeDaoImpl implements ActivationCodeDao {
     }
 
     @Override
+    public ActivationCode get(String code, int serverid) {
+        return null;
+    }
+
+    @Override
     public void update(ActivationCode code) {
         String sql = "UPDATE activation_code" +
-                " SET kind = :kind, servers = :servers, begin_time = :begin_time, end_time = :end_time, valid = :valid WHERE code = :code";
+                " SET kind = :kind, servers = :servers, begin_time = :begin_time, end_time = :end_time, valid = :valid WHERE codes = :codes";
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("code", code.getCode());
+        paramMap.put("codes", code.getCodes());
         paramMap.put("kind", code.getKind());
         paramMap.put("servers", code.getServers());
         paramMap.put("begin_time", code.getBegin_time());
         paramMap.put("end_time", code.getEnd_time());
-        paramMap.put("valid", code.getValid());
+        //paramMap.put("valid", code.getValid());
         jdbcTemplate.update(sql, paramMap);
     }
 

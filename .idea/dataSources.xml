@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3218192591">
+    <data-source source="LOCAL" name="dataSource" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="7ea5af85-2543-4786-a286-3265fbc13c79">
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>${jdbc.url}</jdbc-url>
+      <user-name>${jdbc.user}</user-name>
+      <user-password>df8edfd1dfc0dfcedfc8dfc9df84dfdadfcbdfd9dfd9dfdddfc5dfd8dfcedfd7</user-password>
+      <libraries>
+        <library>
+          <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar!/</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="dataSource2" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="d51baa1f-efbb-40e8-91a4-ab1dc8d390a7">
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc\:mysql\://127.0.0.1\:3306?useUnicode\=true&amp;characterEncoding\=utf8&amp;autoReconnect\=true&amp;failOverReadOnly\=false</jdbc-url>
+      <user-name>user</user-name>
+      <user-password>dfdfdfd9dfcfdfd8</user-password>
+      <libraries>
+        <library>
+          <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar!/</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="dataSource3" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="fcc88090-813e-40d1-8af5-83964d69f8ca">
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc\:mysql\://127.0.0.1\:3306/commondb?useUnicode\=true&amp;characterEncoding\=utf8&amp;autoReconnect\=true&amp;failOverReadOnly\=false</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9fdf9ddf9adf99df98df93</user-password>
+      <libraries>
+        <library>
+          <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar!/</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="db_config" product="" version="" jdbc-version="" driver-name="" driver-version="" uuid="7ddca447-b58b-4003-ba92-bb9f6fc073cd">
+      <jdbc-url>jdbc\:mysql\://127.0.0.1\:3306/commondb?useUnicode\=true&amp;characterEncoding\=utf8&amp;autoReconnect\=true&amp;failOverReadOnly\=false</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9fdf9ddf9adf99df98df93</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

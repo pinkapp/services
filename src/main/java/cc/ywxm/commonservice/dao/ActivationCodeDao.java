@@ -13,9 +13,13 @@ import java.util.List;
 public interface ActivationCodeDao
 {
 
+    void save(ActivationCode code);
+
 	void batch_save(List<ActivationCode> codes);
 
     ActivationCode get(String code);
+
+    ActivationCode get(String code ,int serverid);
 
     void update(ActivationCode code);
 
