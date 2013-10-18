@@ -38,7 +38,7 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     @Override
     public ActivationCode get(String code) {
         Query query = entityManager.createNamedQuery("findActivationCodeByCode");
-        query.setParameter("code", "%"+code+"%");
+        query.setParameter("code", code);
         List<ActivationCode> codes = query.getResultList();
         if (codes.size() > 0) {
             return codes.get(0);
@@ -49,7 +49,7 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     @Override
     public ActivationCode get(String code, int serverid) {
         Query query = entityManager.createNamedQuery("findActivationCodeByCode2");
-        query.setParameter("code", "%"+code+"%");
+        query.setParameter("code", code);
         query.setParameter("servers", "%"+serverid+"%");
         List<ActivationCode> codes = query.getResultList();
         if (codes.size() > 0) {

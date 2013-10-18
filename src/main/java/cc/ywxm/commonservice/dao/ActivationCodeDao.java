@@ -5,7 +5,7 @@ import cc.ywxm.commonservice.model.ActivationCode;
 import java.util.List;
 
 /**
- * 激活码表数据访问类
+ * 激活码表数据访问接口
  * 
  * @author HUANGDECAI
  * 

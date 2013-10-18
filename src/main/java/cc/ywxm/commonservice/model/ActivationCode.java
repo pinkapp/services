@@ -16,21 +16,24 @@ import java.util.StringTokenizer;
  * @author HDC
  */
 @NamedQueries({
-        @NamedQuery(name = "findActivationCodeByCode", query = "SELECT ac FROM ActivationCode ac WHERE ac.codes like :code"),
-        @NamedQuery(name = "findActivationCodeByCode2", query = "SELECT ac FROM ActivationCode ac WHERE ac.codes like :code and ac.servers like :servers")
+        @NamedQuery(name = "findActivationCodeByCode", query = "SELECT ac FROM ActivationCode ac WHERE ac.code = :code"),
+        @NamedQuery(name = "findActivationCodeByCode2", query = "SELECT ac FROM ActivationCode ac WHERE ac.code = :code and ac.servers like :servers")
 })
 @Entity
 public class ActivationCode implements Serializable {
 
+    @Id
+    @GeneratedValue
     private Long id;
+
     /**
      * 激活码
      */
-    private String codes;
+    private String code;
     /**
      * 道具ID
      */
-    private int kind;
+    private Integer kind;
     /**
      * 可用服务器
      */
@@ -38,92 +41,48 @@ public class ActivationCode implements Serializable {
     /**
      * 开始生效时间
      */
-    private Timestamp begin_time;
+    private Timestamp beginTime;
     /**
      * 截止生效时间
      */
-    private Timestamp end_time;
-
+    private Timestamp endTime;
     /**
-     * 已使用的服务器
+     * 活动ID
      */
-    private String used_servers;
-
-    /**
-     * 已使用的激活码
-     */
-    private String used_codes;
+    private Integer eventId;
 
     public ActivationCode() {
     }
 
-    public ActivationCode(int kind) {
-        this.kind = kind;
-    }
 
-    public ActivationCode(int kind, String servers, int begin_ts, int end_ts, int n) {
-        super();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= n; i++) {
-            if (i == 1) {
-                sb.append(RandomStringUtils.getRandomString(16));
-            } else {
-                sb.append("," + RandomStringUtils.getRandomString(16));
-            }
-        }
-        this.codes = sb.toString();
+    public ActivationCode(int eventId, int kind, String servers, int begin_ts, int end_ts) {
+        this.eventId = eventId;
+        this.code = RandomStringUtils.getRandomString(16);
         this.kind = kind;
         this.servers = servers;
-        this.begin_time = new Timestamp(begin_ts * 1000l);
-        this.end_time = new Timestamp(end_ts * 1000l);
-        this.used_servers = "";
-        this.used_codes = "";
+        this.beginTime = new Timestamp(begin_ts * 1000l);
+        this.endTime = new Timestamp(end_ts * 1000l);
     }
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id", unique = true, nullable = false)
-    public Long getId() {
-        return id;
+    public String getCode() {
+        return code;
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    @Column(name = "codes")
-    public String getCodes() {
-        return codes;
-    }
-
-    @Transient
-    public List<String> getCodesForList() {
-        List<String> ss = new ArrayList<String>();
-        StringTokenizer stringTokenizer = new StringTokenizer(codes, ",");
-        while (stringTokenizer.hasMoreTokens()) {
-            ss.add(stringTokenizer.nextToken());
-        }
-        return ss;
-    }
-
-    public void setCodes(String codes) {
-        this.codes = codes;
-    }
-
-    public int getKind() {
+    public Integer getKind() {
         return kind;
     }
 
-    public void setKind(int kind) {
+    public void setKind(Integer kind) {
         this.kind = kind;
     }
 
     public String getServers() {
         return servers;
-    }
-
-    public void setServers(String servers) {
-        this.servers = servers;
     }
 
     @Transient
@@ -136,81 +95,40 @@ public class ActivationCode implements Serializable {
         return ss;
     }
 
-    public Timestamp getBegin_time() {
-        return begin_time;
+
+    public void setServers(String servers) {
+        this.servers = servers;
     }
 
-    public void setBegin_time(Timestamp begin_time) {
-        this.begin_time = begin_time;
+    public Timestamp getBeginTime() {
+        return beginTime;
     }
 
-    public Timestamp getEnd_time() {
-        return end_time;
+    public void setBeginTime(Timestamp beginTime) {
+        this.beginTime = beginTime;
     }
 
-    public void setEnd_time(Timestamp end_time) {
-        this.end_time = end_time;
+    public Timestamp getEndTime() {
+        return endTime;
     }
 
-    public String getUsed_servers() {
-        return used_servers;
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
-    public void setUsed_servers(String used_servers) {
-        this.used_servers = used_servers;
+    public Integer getEventId() {
+        return eventId;
     }
 
-    public void setUsed_servers(List<String> servers) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < servers.size(); i++) {
-            if (i == 0) {
-                sb.append(servers.get(i));
-            } else {
-                sb.append("," + servers.get(i));
-            }
-        }
-        String used_servers = sb.toString();
-        this.used_servers = used_servers;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
-    @Transient
-    public List<String> getUsed_serversForList() {
-        List<String> servers = new ArrayList<String>();
-        StringTokenizer stringTokenizer = new StringTokenizer(used_servers, ",");
-        while (stringTokenizer.hasMoreTokens()) {
-            servers.add(stringTokenizer.nextToken());
-        }
-        return servers;
+    public Long getId() {
+        return id;
     }
 
-    public String getUsed_codes() {
-        return used_codes;
-    }
-
-    @Transient
-    public List<String> getUsed_codesForList() {
-        List<String> servers = new ArrayList<String>();
-        StringTokenizer stringTokenizer = new StringTokenizer(used_codes, ",");
-        while (stringTokenizer.hasMoreTokens()) {
-            servers.add(stringTokenizer.nextToken());
-        }
-        return servers;
-    }
-
-    public void setUsed_codes(String used_codes) {
-        this.used_codes = used_codes;
-    }
-
-    public void setUsed_codes(List<String> codes) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < codes.size(); i++) {
-            if (i == 0) {
-                sb.append(codes.get(i));
-            } else {
-                sb.append("," + codes.get(i));
-            }
-        }
-        String used_codes = sb.toString();
-        this.used_codes = used_codes;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
