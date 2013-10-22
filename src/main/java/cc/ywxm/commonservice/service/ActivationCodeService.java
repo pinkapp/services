@@ -27,4 +27,11 @@ public interface ActivationCodeService {
      */
     String exchangeCode(int serverid,int player, String code);
 
+    /**
+     * 相同活动ID的激活码
+     * @param code
+     * @return
+     */
+    String sameEventCodes(String code);
+
 }

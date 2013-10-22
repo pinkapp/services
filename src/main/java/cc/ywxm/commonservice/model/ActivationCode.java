@@ -17,6 +17,7 @@ import java.util.StringTokenizer;
  */
 @NamedQueries({
         @NamedQuery(name = "findActivationCodeByCode", query = "SELECT ac FROM ActivationCode ac WHERE ac.code = :code"),
+        @NamedQuery(name = "findActivationCodeByEventId", query = "SELECT ac FROM ActivationCode ac WHERE ac.eventId =:eventId"),
         @NamedQuery(name = "findActivationCodeByCode2", query = "SELECT ac FROM ActivationCode ac WHERE ac.code = :code and ac.servers like :servers")
 })
 @Entity

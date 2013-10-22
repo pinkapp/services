@@ -23,4 +23,7 @@ public interface ActivationCodeDao
 
     void update(ActivationCode code);
 
+    List<ActivationCode> findByEventId(int eventId);
+
+
 }

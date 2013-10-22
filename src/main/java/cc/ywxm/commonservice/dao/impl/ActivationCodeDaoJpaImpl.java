@@ -2,6 +2,8 @@ package cc.ywxm.commonservice.dao.impl;
 
 import cc.ywxm.commonservice.dao.ActivationCodeDao;
 import cc.ywxm.commonservice.model.ActivationCode;
+import cc.ywxm.commonservice.model.ActivationCodeExchangeLog;
+import cc.ywxm.commonservice.model.ActivationCodeInfo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +65,11 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
     public void update(ActivationCode code) {
         entityManager.merge(code);
         //entityManager.flush();
+    }
+
+    @Override
+    public List<ActivationCode> findByEventId(int eventId) {
+        return entityManager.createNamedQuery("findActivationCodeByEventId", ActivationCode.class).setParameter("eventId", eventId).getResultList();
     }
 
 }

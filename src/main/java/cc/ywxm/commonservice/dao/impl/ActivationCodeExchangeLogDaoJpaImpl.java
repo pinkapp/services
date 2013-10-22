@@ -3,6 +3,7 @@ package cc.ywxm.commonservice.dao.impl;
 import cc.ywxm.commonservice.dao.ActivationCodeExchangeLogDao;
 import cc.ywxm.commonservice.model.ActivationCode;
 import cc.ywxm.commonservice.model.ActivationCodeExchangeLog;
+import cc.ywxm.commonservice.model.ActivationCodeInfo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
         query.setParameter("serverId", serverId);
         query.setParameter("eventId", eventId);
         query.setParameter("player", player);
-        Long amount = (Long)query.getSingleResult();
+        Long amount = (Long) query.getSingleResult();
         return amount.intValue();
     }
 
@@ -55,6 +56,11 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
             return codes.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<ActivationCodeExchangeLog> findByEventId(int eventId) {
+        return entityManager.createNamedQuery("findByEventId", ActivationCodeExchangeLog.class).setParameter("eventId", eventId).getResultList();
     }
 
 }

@@ -4,6 +4,7 @@ import cc.ywxm.commonservice.dao.ActivationCodeDao;
 import cc.ywxm.commonservice.dao.ActivationCodeExchangeLogDao;
 import cc.ywxm.commonservice.model.ActivationCode;
 import cc.ywxm.commonservice.model.ActivationCodeExchangeLog;
+import cc.ywxm.commonservice.model.ActivationCodeInfo;
 import cc.ywxm.commonservice.service.ActivationCodeService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,10 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * 激活码业务实现类
@@ -71,6 +69,29 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
         } else {
             return new JSONObject().put("result", 5).put("code", code).toString();//cdk过期
         }
+    }
+
+    @Override
+    public String sameEventCodes(String code) {
+        ActivationCode activationCode = activationCodeDao.get(code);
+        List<ActivationCodeInfo> activationCodeInfos = new ArrayList<ActivationCodeInfo>();
+        List<ActivationCode> activationCodes = activationCodeDao.findByEventId(activationCode.getEventId());
+        List<ActivationCodeExchangeLog> activationCodeExchangeLogs = activationCodeExchangeLogDao.findByEventId(activationCode.getEventId());
+        Map<String, ActivationCodeExchangeLog> activationCodeExchangeLogMap = new HashMap<String, ActivationCodeExchangeLog>();
+        for (ActivationCodeExchangeLog log : activationCodeExchangeLogs) {
+            activationCodeExchangeLogMap.put(log.getCode(), log);
+        }
+        for (ActivationCode ac : activationCodes) {
+            if (activationCodeExchangeLogMap.containsKey(ac.getCode())) {
+                ActivationCodeExchangeLog log = activationCodeExchangeLogMap.get(ac.getCode());
+                ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), log.getTime(), log.getPlayer());
+                activationCodeInfos.add(activationCodeInfo);
+            } else {
+                ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), null, null);
+                activationCodeInfos.add(activationCodeInfo);
+            }
+        }
+        return new JSONArray(activationCodeInfos).toString();
     }
 
 }

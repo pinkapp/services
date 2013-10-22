@@ -13,9 +13,10 @@ import java.util.Date;
  * Date: 13-10-17
  * Time: 下午3:48
  */
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(name = "count", query = "SELECT COUNT(*) FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
         @NamedQuery(name = "find", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
+        @NamedQuery(name = "findByEventId", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.eventId =:eventId"),
         @NamedQuery(name = "findByCode", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.code = :code")
 })
 @Entity
