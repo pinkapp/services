@@ -75,23 +75,45 @@ public class ActivationCodeServiceImpl implements ActivationCodeService {
     public String sameEventCodes(String code) {
         ActivationCode activationCode = activationCodeDao.get(code);
         List<ActivationCodeInfo> activationCodeInfos = new ArrayList<ActivationCodeInfo>();
-        List<ActivationCode> activationCodes = activationCodeDao.findByEventId(activationCode.getEventId());
-        List<ActivationCodeExchangeLog> activationCodeExchangeLogs = activationCodeExchangeLogDao.findByEventId(activationCode.getEventId());
-        Map<String, ActivationCodeExchangeLog> activationCodeExchangeLogMap = new HashMap<String, ActivationCodeExchangeLog>();
-        for (ActivationCodeExchangeLog log : activationCodeExchangeLogs) {
-            activationCodeExchangeLogMap.put(log.getCode(), log);
-        }
-        for (ActivationCode ac : activationCodes) {
-            if (activationCodeExchangeLogMap.containsKey(ac.getCode())) {
-                ActivationCodeExchangeLog log = activationCodeExchangeLogMap.get(ac.getCode());
-                ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), log.getTime(), log.getPlayer());
-                activationCodeInfos.add(activationCodeInfo);
-            } else {
-                ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), null, null);
-                activationCodeInfos.add(activationCodeInfo);
+        if (activationCode != null) {
+            List<ActivationCode> activationCodes = activationCodeDao.findByEventId(activationCode.getEventId());
+            List<ActivationCodeExchangeLog> activationCodeExchangeLogs = activationCodeExchangeLogDao.findByEventId(activationCode.getEventId());
+            Map<String, ActivationCodeExchangeLog> activationCodeExchangeLogMap = new HashMap<String, ActivationCodeExchangeLog>();
+            for (ActivationCodeExchangeLog log : activationCodeExchangeLogs) {
+                activationCodeExchangeLogMap.put(log.getCode(), log);
+            }
+            for (ActivationCode ac : activationCodes) {
+                if (activationCodeExchangeLogMap.containsKey(ac.getCode())) {
+                    ActivationCodeExchangeLog log = activationCodeExchangeLogMap.get(ac.getCode());
+                    ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), log.getTime(), log.getPlayer());
+                    activationCodeInfos.add(activationCodeInfo);
+                } else {
+                    ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo(ac.getCode(), null, null);
+                    activationCodeInfos.add(activationCodeInfo);
+                }
             }
         }
         return new JSONArray(activationCodeInfos).toString();
+    }
+
+    @Override
+    public String getActivationCodeInfo(String code) {
+        ActivationCode activationCode = activationCodeDao.get(code);
+        if (activationCode != null) {
+            ActivationCodeInfo activationCodeInfo = null;
+            ActivationCodeExchangeLog activationCodeExchangeLog = activationCodeExchangeLogDao.findByCode(code);
+            if (activationCodeExchangeLog == null) {
+                activationCodeInfo = new ActivationCodeInfo(code, null, null);
+            } else {
+                activationCodeInfo = new ActivationCodeInfo(code, activationCodeExchangeLog.getTime(), activationCodeExchangeLog.getPlayer());
+            }
+            int total = activationCodeDao.countByEventId(activationCode.getEventId());
+            int used = activationCodeExchangeLogDao.countUsed(activationCode.getEventId());
+            activationCodeInfo.setEventUsed(used);
+            activationCodeInfo.setEventUnused(total - used);
+            return new JSONObject(activationCodeInfo).toString();
+        }
+        return new JSONObject().toString();
     }
 
 }

@@ -14,10 +14,11 @@ import java.util.Date;
  * Time: 下午3:48
  */
 @NamedQueries(value = {
-        @NamedQuery(name = "count", query = "SELECT COUNT(*) FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
-        @NamedQuery(name = "find", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
-        @NamedQuery(name = "findByEventId", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.eventId =:eventId"),
-        @NamedQuery(name = "findByCode", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.code = :code")
+        @NamedQuery(name = "countActivationCodeExchangeLog", query = "SELECT COUNT(*) FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
+        @NamedQuery(name = "countUsedActivationCodeExchangeLog", query = "SELECT COUNT(*) FROM ActivationCodeExchangeLog acel WHERE acel.eventId =:eventId"),
+        @NamedQuery(name = "findActivationCodeExchangeLog", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.player = :player AND acel.eventId =:eventId AND acel.serverId = :serverId"),
+        @NamedQuery(name = "findActivationCodeExchangeLogByEventId", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.eventId =:eventId"),
+        @NamedQuery(name = "findActivationCodeExchangeLogByCode", query = "SELECT acel FROM ActivationCodeExchangeLog acel WHERE acel.code = :code")
 })
 @Entity
 public class ActivationCodeExchangeLog {

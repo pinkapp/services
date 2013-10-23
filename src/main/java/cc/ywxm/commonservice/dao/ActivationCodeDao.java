@@ -25,5 +25,7 @@ public interface ActivationCodeDao
 
     List<ActivationCode> findByEventId(int eventId);
 
+    int countByEventId(int eventId);
+
 
 }

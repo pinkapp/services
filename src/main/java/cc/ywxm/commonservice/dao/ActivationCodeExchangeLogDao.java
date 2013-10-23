@@ -30,6 +30,13 @@ public interface ActivationCodeExchangeLogDao
 
     /**
      *
+     * @param eventId
+     * @return
+     */
+    int countUsed(int eventId);
+
+    /**
+     *
      * @param serverId
      * @param eventId
      * @param player
@@ -44,6 +51,11 @@ public interface ActivationCodeExchangeLogDao
      */
     ActivationCodeExchangeLog findByCode(String code);
 
+    /**
+     *
+     * @param eventId
+     * @return
+     */
     List<ActivationCodeExchangeLog> findByEventId(int eventId);
 
 }

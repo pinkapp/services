@@ -72,4 +72,12 @@ public class ActivationCodeDaoJpaImpl implements ActivationCodeDao {
         return entityManager.createNamedQuery("findActivationCodeByEventId", ActivationCode.class).setParameter("eventId", eventId).getResultList();
     }
 
+    @Override
+    public int countByEventId(int eventId) {
+        Query query = entityManager.createNamedQuery("countActivationCodeByEventId");
+        query.setParameter("eventId", eventId);
+        Long amount = (Long) query.getSingleResult();
+        return amount.intValue();
+    }
+
 }

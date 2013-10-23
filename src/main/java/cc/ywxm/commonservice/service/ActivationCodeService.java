@@ -34,4 +34,11 @@ public interface ActivationCodeService {
      */
     String sameEventCodes(String code);
 
+    /**
+     * 查询激活码信息
+     * @param code
+     * @return
+     */
+    String  getActivationCodeInfo(String code);
+
 }

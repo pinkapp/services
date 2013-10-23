@@ -13,6 +13,8 @@ public class ActivationCodeInfo {
     private Timestamp useTime;
     private Integer usePlayer;
     private String status;
+    private Integer eventUsed;
+    private Integer eventUnused;
 
     public ActivationCodeInfo(String code, Timestamp useTime, Integer usePlayer) {
         this.code = code;
@@ -55,5 +57,21 @@ public class ActivationCodeInfo {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getEventUsed() {
+        return eventUsed;
+    }
+
+    public void setEventUsed(Integer eventUsed) {
+        this.eventUsed = eventUsed;
+    }
+
+    public Integer getEventUnused() {
+        return eventUnused;
+    }
+
+    public void setEventUnused(Integer eventUnused) {
+        this.eventUnused = eventUnused;
     }
 }

@@ -30,7 +30,7 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
 
     @Override
     public int count(int serverId, int eventId, int player) {
-        Query query = entityManager.createNamedQuery("count");
+        Query query = entityManager.createNamedQuery("countActivationCodeExchangeLog");
         query.setParameter("serverId", serverId);
         query.setParameter("eventId", eventId);
         query.setParameter("player", player);
@@ -39,8 +39,16 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
     }
 
     @Override
+    public int countUsed(int eventId) {
+        Query query = entityManager.createNamedQuery("countUsedActivationCodeExchangeLog");
+        query.setParameter("eventId", eventId);
+        Long amount = (Long) query.getSingleResult();
+        return amount.intValue();
+    }
+
+    @Override
     public List<ActivationCodeExchangeLog> find(int serverId, int eventId, int player) {
-        Query query = entityManager.createNamedQuery("find");
+        Query query = entityManager.createNamedQuery("findActivationCodeExchangeLog");
         query.setParameter("serverId", serverId);
         query.setParameter("eventId", eventId);
         query.setParameter("player", player);
@@ -49,7 +57,7 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
 
     @Override
     public ActivationCodeExchangeLog findByCode(String code) {
-        Query query = entityManager.createNamedQuery("findByCode");
+        Query query = entityManager.createNamedQuery("findActivationCodeExchangeLogByCode");
         query.setParameter("code", code);
         List<ActivationCodeExchangeLog> codes = query.getResultList();
         if (codes.size() > 0) {
@@ -60,7 +68,7 @@ public class ActivationCodeExchangeLogDaoJpaImpl implements ActivationCodeExchan
 
     @Override
     public List<ActivationCodeExchangeLog> findByEventId(int eventId) {
-        return entityManager.createNamedQuery("findByEventId", ActivationCodeExchangeLog.class).setParameter("eventId", eventId).getResultList();
+        return entityManager.createNamedQuery("findActivationCodeExchangeLogByEventId", ActivationCodeExchangeLog.class).setParameter("eventId", eventId).getResultList();
     }
 
 }
