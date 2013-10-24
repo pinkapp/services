@@ -25,9 +25,6 @@ package org.json.zip;
  SOFTWARE.
  */
 
-import org.json.zip.*;
-import org.json.zip.Huff;
-
 /**
  * JSONzip is a binary-encoded JSON dialect. It is designed to compress the
  * messages in a session. It is adaptive, so with each message seen, it should

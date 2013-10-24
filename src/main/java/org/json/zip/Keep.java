@@ -25,10 +25,6 @@ package org.json.zip;
  SOFTWARE.
  */
 
-import org.json.zip.JSONzip;
-import org.json.zip.None;
-import org.json.zip.PostMortem;
-
 /**
  * A keep is a data structure that associates strings (or substrings) with
  * numbers. This allows the sending of small integers instead of strings.

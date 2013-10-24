@@ -1,10 +1,8 @@
 package org.json.zip;
 
-import java.util.HashMap;
-
 import org.json.Kim;
-import org.json.zip.*;
-import org.json.zip.JSONzip;
+
+import java.util.HashMap;
 
 /*
  Copyright (c) 2013 JSON.org

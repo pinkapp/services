@@ -1,18 +1,13 @@
 package org.json.zip;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.Kim;
-import org.json.zip.*;
-import org.json.zip.Huff;
-import org.json.zip.JSONzip;
-import org.json.zip.Keep;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 
 /*
  Copyright (c) 2013 JSON.org

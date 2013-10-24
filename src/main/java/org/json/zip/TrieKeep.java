@@ -1,8 +1,6 @@
 package org.json.zip;
 
 import org.json.Kim;
-import org.json.zip.*;
-import org.json.zip.JSONzip;
 
 /*
  Copyright (c) 2013 JSON.org

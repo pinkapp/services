@@ -1,8 +1,5 @@
 package org.json.zip;
 
-import org.json.zip.*;
-import org.json.zip.BitInputStream;
-
 import java.io.IOException;
 import java.io.OutputStream;
 

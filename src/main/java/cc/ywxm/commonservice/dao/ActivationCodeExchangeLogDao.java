@@ -1,7 +1,6 @@
 package cc.ywxm.commonservice.dao;
 
 import cc.ywxm.commonservice.model.ActivationCodeExchangeLog;
-import cc.ywxm.commonservice.model.ActivationCodeInfo;
 
 import java.util.List;
 

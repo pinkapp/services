@@ -1,9 +1,7 @@
 package cc.ywxm.commonservice.dao.impl;
 
 import cc.ywxm.commonservice.dao.ActivationCodeExchangeLogDao;
-import cc.ywxm.commonservice.model.ActivationCode;
 import cc.ywxm.commonservice.model.ActivationCodeExchangeLog;
-import cc.ywxm.commonservice.model.ActivationCodeInfo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

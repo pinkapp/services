@@ -1,14 +1,11 @@
 package org.json.zip;
 
-import java.io.UnsupportedEncodingException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.Kim;
-import org.json.zip.*;
-import org.json.zip.BitReader;
-import org.json.zip.JSONzip;
+
+import java.io.UnsupportedEncodingException;
 
 /*
  Copyright (c) 2012 JSON.org
