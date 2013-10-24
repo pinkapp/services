@@ -8,11 +8,8 @@
             <param name="ConversionPattern" value="%d %-5p [%t] %l - %m%n"/>
         </layout>
     </appender>
-    <logger name="cc.ywxm.webservice.utils.GMUtils">
-        <level value="INFO"></level>
-    </logger>
     <root>
-        <priority value="ERROR"/>
+        <priority value="INFO"/>
         <appender-ref ref="CONSOLE"/>
     </root>
 </log4j:configuration>
